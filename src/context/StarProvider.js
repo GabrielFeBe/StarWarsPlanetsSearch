@@ -1,9 +1,10 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const StarContext = createContext();
 
 function StarProvider({ children }) {
   const [stars, setStars] = useState([]);
+
   const fetchPlants = async () => {
     const response = await fetch('https://swapi.dev/api/planets');
     const data = await response.json();
@@ -14,10 +15,13 @@ function StarProvider({ children }) {
     });
     setStars(data.results);
   };
-  fetchPlants();
   const values = {
     stars,
   };
+
+  useEffect(() => {
+    fetchPlants();
+  }, []);
   return (
     <StarContext.Provider value={ { values } }>
       {children}
