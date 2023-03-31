@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StarContext } from '../context/StarProvider';
 
+const filterArraysForUse = ['population',
+  'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+
 export default function Table() {
   const [filter, setFilter] = useState('');
   const [filteredArray, setFilteredArray] = useState([]);
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
-  const [arrayOfColumns, setArrayOfColumns] = useState(['population',
-    'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
+  const [arrayOfColumns, setArrayOfColumns] = useState(filterArraysForUse);
   const [valueFilter, setValueFilter] = useState(0);
   const [arrayOfFilters, setArrayOfFilters] = useState([]);
   const [columnFilteredArray, setColumnFilteredArray] = useState([]);
@@ -56,7 +58,7 @@ export default function Table() {
           value={ columnFilter }
           id="filterType"
           data-testid="column-filter"
-          onClick={ ({ target }) => setColumnFilter(target.value) }
+          onChange={ ({ target }) => setColumnFilter(target.value) }
         >
           {arrayOfColumns.map((column) => (
             <option
@@ -99,7 +101,37 @@ export default function Table() {
           Filtrar
 
         </button>
-        {arrayOfFilters.map((filterInfo) => <p key={ filterInfo }>{filterInfo}</p>)}
+        <button
+          data-testid="button-remove-filters"
+          onClick={ () => {
+            setArrayOfFilters([]);
+            setColumnFilter(filterArraysForUse[0]);
+            setArrayOfColumns(filterArraysForUse);
+          } }
+        >
+          Remover Filtros
+
+        </button>
+        {arrayOfFilters.map((filterInfo) => (
+          <p
+            key={ filterInfo }
+            data-testid="filter"
+          >
+            {filterInfo}
+            <button
+              onClick={ () => {
+                const splitingInfo = filterInfo.split(' ');
+                const excludingCurrFilter = arrayOfFilters.filter(
+                  (filtering) => filtering !== filterInfo,
+                );
+                setArrayOfColumns([...arrayOfColumns, splitingInfo[0]]);
+                setArrayOfFilters(excludingCurrFilter);
+              } }
+            >
+              X
+
+            </button>
+          </p>))}
       </div>
       <table>
         <thead>
