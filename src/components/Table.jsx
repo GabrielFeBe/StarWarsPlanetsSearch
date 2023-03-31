@@ -6,6 +6,8 @@ export default function Table() {
   const [filteredArray, setFilteredArray] = useState([]);
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [arrayOfColumns, setArrayOfColumns] = useState(['population',
+    'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
   const [valueFilter, setValueFilter] = useState(0);
   const [arrayOfFilters, setArrayOfFilters] = useState([]);
   const [columnFilteredArray, setColumnFilteredArray] = useState([]);
@@ -20,7 +22,6 @@ export default function Table() {
         const splitStatment = currFilter.split(' ');
         const valueFromApi = planet[splitStatment[0]];
         const valueFromStatment = splitStatment[3];
-        console.log(valueFromApi);
         switch (splitStatment[1]) {
         case 'menor':
           return +valueFromApi < +valueFromStatment;
@@ -32,10 +33,8 @@ export default function Table() {
           return false;
         }
       });
-      console.log(arrayOfBool);
       return arrayOfBool.every((bool) => bool);
     });
-    console.log(filteredValue);
     setColumnFilteredArray(filteredValue);
   }, [arrayOfFilters, filteredArray]);
   const clickingFilterButton = () => {
@@ -59,11 +58,16 @@ export default function Table() {
           data-testid="column-filter"
           onClick={ ({ target }) => setColumnFilter(target.value) }
         >
-          <option value="population" data-testid="options">population</option>
-          <option value="orbital_period" data-testid="options">orbital_period</option>
-          <option value="diameter" data-testid="options">diameter</option>
-          <option value="rotation_period" data-testid="options">rotation_period</option>
-          <option value="surface_water" data-testid="options">surface_water</option>
+          {arrayOfColumns.map((column) => (
+            <option
+              value={ column }
+              data-testid="options"
+              key={ column }
+            >
+              {column}
+
+            </option>
+          ))}
         </select>
         <select
           name=""
@@ -83,7 +87,14 @@ export default function Table() {
         />
         <button
           data-testid="button-filter"
-          onClick={ clickingFilterButton }
+          onClick={ () => {
+            clickingFilterButton();
+            const newArrayOfColumns = arrayOfColumns.filter(
+              (column) => column !== columnFilter,
+            );
+            setColumnFilter(newArrayOfColumns[0]);
+            setArrayOfColumns(newArrayOfColumns);
+          } }
         >
           Filtrar
 
