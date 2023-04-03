@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
 
 export const StarContext = createContext();
 
@@ -15,9 +16,10 @@ function StarProvider({ children }) {
     });
     setStars(data.results);
   };
-  const values = {
+  const values = useMemo(() => ({
     stars,
-  };
+    setStars,
+  }), [stars]);
 
   useEffect(() => {
     fetchPlants();
@@ -28,5 +30,9 @@ function StarProvider({ children }) {
     </StarContext.Provider>
   );
 }
+
+StarProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default StarProvider;

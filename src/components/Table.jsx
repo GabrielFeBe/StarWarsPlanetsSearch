@@ -3,17 +3,17 @@ import { StarContext } from '../context/StarProvider';
 
 const filterArraysForUse = ['population',
   'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
-
 export default function Table() {
   const [filter, setFilter] = useState('');
-  const [filteredArray, setFilteredArray] = useState([]);
+  const { values: { stars: worlds = [], setStars } = {} } = useContext(StarContext);
+  const [filteredArray, setFilteredArray] = useState(worlds);
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [arrayOfColumns, setArrayOfColumns] = useState(filterArraysForUse);
   const [valueFilter, setValueFilter] = useState(0);
   const [arrayOfFilters, setArrayOfFilters] = useState([]);
-  const [columnFilteredArray, setColumnFilteredArray] = useState([]);
-  const { values: { stars: worlds } } = useContext(StarContext);
+  const [sortDropDown, setSortDropDown] = useState('population');
+  const [radioValue, setRadioValue] = useState('ASC');
   useEffect(() => {
     const filteredPlanets = worlds.filter(({ name }) => name.includes(filter));
     setFilteredArray(filteredPlanets);
@@ -37,8 +37,8 @@ export default function Table() {
       });
       return arrayOfBool.every((bool) => bool);
     });
-    setColumnFilteredArray(filteredValue);
-  }, [arrayOfFilters, filteredArray]);
+    setFilteredArray(filteredValue);
+  }, [arrayOfFilters]);
   const clickingFilterButton = () => {
     const newItem = `${columnFilter} ${comparisonFilter} ${valueFilter}`;
     setArrayOfFilters([...arrayOfFilters, newItem]);
@@ -107,6 +107,7 @@ export default function Table() {
             setArrayOfFilters([]);
             setColumnFilter(filterArraysForUse[0]);
             setArrayOfColumns(filterArraysForUse);
+            setFilteredArray(worlds);
           } }
         >
           Remover Filtros
@@ -126,12 +127,70 @@ export default function Table() {
                 );
                 setArrayOfColumns([...arrayOfColumns, splitingInfo[0]]);
                 setArrayOfFilters(excludingCurrFilter);
+                setFilteredArray(worlds);
               } }
             >
               X
-
             </button>
           </p>))}
+      </div>
+      <div>
+        <select
+          onChange={ ({ target }) => setSortDropDown(target.value) }
+          data-testid="column-sort"
+        >
+          {filterArraysForUse.map((information, i) => (
+            <option value={ information } key={ i }>{information}</option>
+          ))}
+        </select>
+        <input
+          type="radio"
+          name="sort"
+          value="ASC"
+          data-testid="column-sort-input-asc"
+          checked={ radioValue === 'ASC' }
+          onClick={ ({ target }) => setRadioValue(target.value) }
+        />
+        crescente
+        <input
+          type="radio"
+          name="sort"
+          value="DESC"
+          data-testid="column-sort-input-desc"
+          checked={ radioValue === 'DESC' }
+          onClick={ ({ target }) => setRadioValue(target.value) }
+        />
+        decrecente
+        <button
+          data-testid="column-sort-button"
+          onClick={ () => {
+            if (radioValue === 'ASC') {
+              const ascArray = worlds.filter((world) => world[sortDropDown]
+              !== 'unknown').sort(
+                (a, b) => +a[sortDropDown] - +b[sortDropDown],
+              );
+              const unknownPart = worlds.filter((world) => world[sortDropDown]
+               === 'unknown');
+              console.log(unknownPart);
+              console.log(ascArray);
+              setStars([...ascArray, ...unknownPart]);
+            }
+            if (radioValue === 'DESC') {
+              const descArray = worlds.filter((world) => world[sortDropDown]
+              !== 'unknown').sort(
+                (a, b) => +b[sortDropDown] - +a[sortDropDown],
+              );
+              const unknownPart = worlds.filter((world) => world[sortDropDown]
+               === 'unknown');
+
+              console.log(descArray);
+              setStars([...descArray, ...unknownPart]);
+            }
+          } }
+        >
+          Ordenar
+
+        </button>
       </div>
       <table>
         <thead>
@@ -152,7 +211,7 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {arrayOfFilters.length < 1 ? filteredArray.map((planet, i) => {
+          { filteredArray.map((planet, i) => {
             const { climate, created, diameter, edited, films, gravity, name,
               orbital_period: orbitalPeriod, population,
               rotation_period: rotationPeriod,
@@ -160,7 +219,7 @@ export default function Table() {
 
             return (
               <tr key={ i }>
-                <td>{name}</td>
+                <td data-testid="planet-name">{name}</td>
                 <td>{rotationPeriod}</td>
                 <td>{orbitalPeriod}</td>
                 <td>{diameter}</td>
@@ -175,31 +234,7 @@ export default function Table() {
                 <td>{url}</td>
               </tr>
             );
-          })
-            : columnFilteredArray.map((planet, i) => {
-              const { climate, created, diameter, edited, films, gravity, name,
-                orbital_period: orbitalPeriod, population,
-                rotation_period: rotationPeriod,
-                surface_water: surfaceWater, terrain, url } = planet;
-
-              return (
-                <tr key={ i }>
-                  <td>{name}</td>
-                  <td>{rotationPeriod}</td>
-                  <td>{orbitalPeriod}</td>
-                  <td>{diameter}</td>
-                  <td>{climate}</td>
-                  <td>{gravity}</td>
-                  <td>{terrain}</td>
-                  <td>{surfaceWater}</td>
-                  <td>{population}</td>
-                  <td>{films.map((film) => film)}</td>
-                  <td>{created}</td>
-                  <td>{edited}</td>
-                  <td>{url}</td>
-                </tr>
-              );
-            })}
+          })}
         </tbody>
       </table>
     </>
