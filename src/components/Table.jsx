@@ -7,7 +7,7 @@ export default function Table() {
   return (
     <table>
       <thead>
-        <tr>
+        <tr className="text-blue-700">
           <th>Name</th>
           <th>Rotation Period</th>
           <th>Orbital Period</th>
