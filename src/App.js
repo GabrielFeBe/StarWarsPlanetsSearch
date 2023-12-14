@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import Table from './components/Table';
+import Home from './pages/Home';
 
 function App() {
   return (
     <span>
-      Hello, App!
-      <Table />
+      <Home />
     </span>
   );
 }

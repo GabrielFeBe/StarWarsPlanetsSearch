@@ -5,6 +5,7 @@ export const StarContext = createContext();
 
 function StarProvider({ children }) {
   const [stars, setStars] = useState([]);
+  const [filterdStars, setFilterdStars] = useState([]);
 
   const fetchPlants = async () => {
     const response = await fetch('https://swapi.dev/api/planets');
@@ -15,11 +16,14 @@ function StarProvider({ children }) {
       return planet;
     });
     setStars(data.results);
+    setFilterdStars(data.results);
   };
   const values = useMemo(() => ({
     stars,
     setStars,
-  }), [stars]);
+    filterdStars,
+    setFilterdStars,
+  }), [stars, filterdStars]);
 
   useEffect(() => {
     fetchPlants();
