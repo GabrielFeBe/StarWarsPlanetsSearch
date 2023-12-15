@@ -78,132 +78,137 @@ export default function Home() {
         />
 
       </h1>
-      <input
-        type="text"
-        data-testid="name-filter"
-        value={ filter }
-        onChange={ ({ target }) => setFilter(target.value) }
-      />
-      <div>
-        <select
-          name="filterType"
-          value={ columnFilter }
-          id="filterType"
-          data-testid="column-filter"
-          onChange={ ({ target }) => setColumnFilter(target.value) }
-        >
-          {arrayOfColumns.map((column) => (
-            <option
-              value={ column }
-              data-testid="options"
-              key={ column }
-            >
-              {column}
+      <section
+        className="w-[1212px] h-[750px] border-[1px] border-white rounded-[20px]"
+      >
 
-            </option>
-          ))}
-        </select>
-        <select
-          name=""
-          data-testid="comparison-filter"
-          id=""
-          onChange={ ({ target }) => setComparisonFilter(target.value) }
-        >
-          <option value="maior que">maior que</option>
-          <option value="menor que">menor que</option>
-          <option value="igual a">igual a</option>
-        </select>
         <input
           type="text"
-          data-testid="value-filter"
-          value={ valueFilter }
-          onChange={ ({ target }) => setValueFilter(target.value) }
+          data-testid="name-filter"
+          value={ filter }
+          onChange={ ({ target }) => setFilter(target.value) }
         />
-        <button
-          data-testid="button-filter"
-          onClick={ () => {
-            clickingFilterButton();
-            const newArrayOfColumns = arrayOfColumns.filter(
-              (column) => column !== columnFilter,
-            );
-            setColumnFilter(newArrayOfColumns[0]);
-            setArrayOfColumns(newArrayOfColumns);
-          } }
-        >
-          Filtrar
-
-        </button>
-        <button
-          data-testid="button-remove-filters"
-          onClick={ () => {
-            setArrayOfFilters([]);
-            setColumnFilter(filterArraysForUse[0]);
-            setArrayOfColumns(filterArraysForUse);
-            setFilterdStars(worlds);
-          } }
-        >
-          Remover Filtros
-
-        </button>
-        {arrayOfFilters.map((filterInfo) => (
-          <p
-            key={ filterInfo }
-            data-testid="filter"
+        <div>
+          <select
+            name="filterType"
+            value={ columnFilter }
+            id="filterType"
+            data-testid="column-filter"
+            onChange={ ({ target }) => setColumnFilter(target.value) }
           >
-            {filterInfo}
-            <button
-              onClick={ () => {
-                const splitingInfo = filterInfo.split(' ');
-                const excludingCurrFilter = arrayOfFilters.filter(
-                  (filtering) => filtering !== filterInfo,
-                );
-                setArrayOfColumns([...arrayOfColumns, splitingInfo[0]]);
-                setArrayOfFilters(excludingCurrFilter);
-                setFilterdStars(worlds);
-              } }
-            >
-              X
-            </button>
-          </p>))}
-      </div>
-      <div>
-        <select
-          onChange={ ({ target }) => setSortDropDown(target.value) }
-          data-testid="column-sort"
-        >
-          {filterArraysForUse.map((information, i) => (
-            <option value={ information } key={ i }>{information}</option>
-          ))}
-        </select>
-        <input
-          type="radio"
-          name="sort"
-          value="ASC"
-          data-testid="column-sort-input-asc"
-          checked={ radioValue === 'ASC' }
-          onClick={ ({ target }) => setRadioValue(target.value) }
-        />
-        crescente
-        <input
-          type="radio"
-          name="sort"
-          value="DESC"
-          data-testid="column-sort-input-desc"
-          checked={ radioValue === 'DESC' }
-          onClick={ ({ target }) => setRadioValue(target.value) }
-        />
-        decrecente
-        <button
-          data-testid="column-sort-button"
-          onClick={ () => {
-            orderStars(radioValue, sortDropDown, worlds, setStars);
-          } }
-        >
-          Ordenar
+            {arrayOfColumns.map((column) => (
+              <option
+                value={ column }
+                data-testid="options"
+                key={ column }
+              >
+                {column}
 
-        </button>
-      </div>
-      <Table />
+              </option>
+            ))}
+          </select>
+          <select
+            name=""
+            data-testid="comparison-filter"
+            id=""
+            onChange={ ({ target }) => setComparisonFilter(target.value) }
+          >
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
+          </select>
+          <input
+            type="text"
+            data-testid="value-filter"
+            value={ valueFilter }
+            onChange={ ({ target }) => setValueFilter(target.value) }
+          />
+          <button
+            data-testid="button-filter"
+            onClick={ () => {
+              clickingFilterButton();
+              const newArrayOfColumns = arrayOfColumns.filter(
+                (column) => column !== columnFilter,
+              );
+              setColumnFilter(newArrayOfColumns[0]);
+              setArrayOfColumns(newArrayOfColumns);
+            } }
+          >
+            Filtrar
+
+          </button>
+          <button
+            data-testid="button-remove-filters"
+            onClick={ () => {
+              setArrayOfFilters([]);
+              setColumnFilter(filterArraysForUse[0]);
+              setArrayOfColumns(filterArraysForUse);
+              setFilterdStars(worlds);
+            } }
+          >
+            Remover Filtros
+
+          </button>
+          {arrayOfFilters.map((filterInfo) => (
+            <p
+              key={ filterInfo }
+              data-testid="filter"
+            >
+              {filterInfo}
+              <button
+                onClick={ () => {
+                  const splitingInfo = filterInfo.split(' ');
+                  const excludingCurrFilter = arrayOfFilters.filter(
+                    (filtering) => filtering !== filterInfo,
+                  );
+                  setArrayOfColumns([...arrayOfColumns, splitingInfo[0]]);
+                  setArrayOfFilters(excludingCurrFilter);
+                  setFilterdStars(worlds);
+                } }
+              >
+                X
+              </button>
+            </p>))}
+        </div>
+        <div>
+          <select
+            onChange={ ({ target }) => setSortDropDown(target.value) }
+            data-testid="column-sort"
+          >
+            {filterArraysForUse.map((information, i) => (
+              <option value={ information } key={ i }>{information}</option>
+            ))}
+          </select>
+          <input
+            type="radio"
+            name="sort"
+            value="ASC"
+            data-testid="column-sort-input-asc"
+            checked={ radioValue === 'ASC' }
+            onClick={ ({ target }) => setRadioValue(target.value) }
+          />
+          crescente
+          <input
+            type="radio"
+            name="sort"
+            value="DESC"
+            data-testid="column-sort-input-desc"
+            checked={ radioValue === 'DESC' }
+            onClick={ ({ target }) => setRadioValue(target.value) }
+          />
+          decrecente
+          <button
+            data-testid="column-sort-button"
+            onClick={ () => {
+              orderStars(radioValue, sortDropDown, worlds, setStars);
+            } }
+          >
+            Ordenar
+
+          </button>
+        </div>
+        <Table />
+      </section>
 
     </div>
   );

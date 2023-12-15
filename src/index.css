@@ -16,22 +16,41 @@ code {
     monospace;
 }
 
-.external-border {
-  border: double 5px transparent;
-  border-radius: 9999px;
-  width: 695.06px; /* Ajuste conforme necessário */
-  height: 695.06px;
-  background-image: linear-gradient(transparent, transparent ),
-   linear-gradient(180deg, #FAE60A 0%, rgba(255, 255, 255, 0) 94.26%);
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-  background-attachment: fixed; /* Fixa a imagem de fundo */
-  background-size: cover; /* Ajuste conforme necessário para o tamanho desejado */
-  background-position: center; /* Ajuste conforme necessário para a posição desejada */
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 6px;               /* width of the entire scrollbar */
+  height: 6px;
+  margin:10px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: gray;        /* color of the tracking area */
+  width: 2px;                /* width of the tracking area */
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid black;  /* creates padding around scroll thumb */
+}
+.scrollbar-custom::-webkit-scrollbar-corner {
 
 }
 
-.internal-border {
-  box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px rgba(255, 255, 255, 0); /* 1px é a largura da borda */
-  border-radius: 9999px; /* Um valor grande para obter cantos arredondados "full" */
+
+.table-container {
+  max-height: 403px; 
+  overflow-y: auto; 
+}
+
+td {
+  padding: 1rem;
+}
+
+th {
+  border: 1px solid black;
+  background-color: #2E3035;
+  color: white;
+  box-sizing: border-box;
+  padding: 1rem;
+  font-weight: 700;
 }
