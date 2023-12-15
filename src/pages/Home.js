@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import Table from '../components/Table';
 import { StarContext } from '../context/StarProvider';
 import orderStars from '../utils/orderPlanets';
+import bgImage from '../images/bgImage.png';
+import grafismo from '../images/grafismo.svg';
+import logo from '../images/logo.svg';
 
 const filterArraysForUse = ['population',
   'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
@@ -49,7 +52,32 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div
+      className="w-full min-h-screen flex flex-col items-center justify-center "
+      style={ {
+        backgroundImage: `url(${bgImage})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+      } }
+    >
+      <h1
+        className="relative w-[695.06px] h-[695.06px]"
+        style={ {
+          backgroundImage: `url(${grafismo})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        } }
+      >
+
+        <img
+          src={ logo }
+          alt=""
+          className="absolute top-[165px] left-[50%]
+         transform translate-x-[-50%]"
+        />
+
+      </h1>
       <input
         type="text"
         data-testid="name-filter"

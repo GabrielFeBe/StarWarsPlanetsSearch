@@ -3,9 +3,7 @@ import Home from './pages/Home';
 
 function App() {
   return (
-    <span>
-      <Home />
-    </span>
+    <Home />
   );
 }
 
