@@ -54,3 +54,21 @@ th {
   padding: 1rem;
   font-weight: 700;
 }
+
+select {
+  background-color: transparent;  
+  color: white;
+  border-bottom: 1px solid white;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+label {
+  color: #AEAEAE;
+}
+
+option {
+  background-color: black;
+  color: white;
+}
