@@ -36,7 +36,7 @@ export default function Home() {
 
       </h1>
       <section
-        className="w-[1212px] h-[750px] border-[1px] border-white rounded-[20px] flex
+        className="w-[1400px] h-[750px] border-[1px] border-white rounded-[20px] flex
         justify-end flex-col pb-[20px]"
       >
 

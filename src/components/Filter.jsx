@@ -43,7 +43,7 @@ export default function Filter() {
   };
 
   return (
-    <div className="flex gap-[40px] justify-center items-center mb-[63px]">
+    <div className="flex gap-[30px] justify-center items-center mb-[63px]">
       <label
         htmlFor="filterType"
         className="w-[134px] h-[49px]"
@@ -122,26 +122,31 @@ export default function Filter() {
         REMOVER
 
       </button>
-      {arrayOfFilters.map((filterInfo) => (
-        <p
-          key={ filterInfo }
-          data-testid="filter"
-        >
-          {filterInfo}
-          <button
-            onClick={ () => {
-              const splitingInfo = filterInfo.split(' ');
-              const excludingCurrFilter = arrayOfFilters.filter(
-                (filtering) => filtering !== filterInfo,
-              );
-              setArrayOfColumns([...arrayOfColumns, splitingInfo[0]]);
-              setArrayOfFilters(excludingCurrFilter);
-              setFilterdStars(worlds);
-            } }
+      <div className="w-[178.88px] h-[85px] overflow-auto flex flex-col gap-2">
+
+        {arrayOfFilters.map((filterInfo) => (
+          <p
+            key={ filterInfo }
+            data-testid="filter"
+            className="text-white"
           >
-            X
-          </button>
-        </p>))}
+            {filterInfo}
+            <button
+              onClick={ () => {
+                const splitingInfo = filterInfo.split(' ');
+                const excludingCurrFilter = arrayOfFilters.filter(
+                  (filtering) => filtering !== filterInfo,
+                );
+                setArrayOfColumns([...arrayOfColumns, splitingInfo[0]]);
+                setArrayOfFilters(excludingCurrFilter);
+                setFilterdStars(worlds);
+              } }
+            >
+              X
+            </button>
+          </p>))}
+      </div>
+
       <label htmlFor="" className="w-[135px] h-[49px]">
         Ordenar
         <select
