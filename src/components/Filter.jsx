@@ -6,7 +6,7 @@ const filterArraysForUse = ['population',
   'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
 
 export default function Filter() {
-  const { values: { stars: worlds = [], setStars,
+  const { values: { stars: worlds = [],
     setFilterdStars, filterdStars } = {} } = useContext(StarContext);
   const [sortDropDown, setSortDropDown] = useState('population');
   const [radioValue, setRadioValue] = useState('ASC');
@@ -191,7 +191,7 @@ export default function Filter() {
       <button
         data-testid="column-sort-button"
         onClick={ () => {
-          orderStars(radioValue, sortDropDown, worlds, setStars);
+          orderStars(radioValue, sortDropDown, filterdStars, setFilterdStars);
         } }
         className="border-[#FAE60A] text-[#FAE60A] w-[98px] h-[85px] rounded-md
         bg-transparent flex items-center justify-center font-bold text-sm border-[1px]"
