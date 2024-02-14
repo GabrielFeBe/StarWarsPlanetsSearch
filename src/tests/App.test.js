@@ -23,7 +23,7 @@ test('I am your test', async () => {
   const orderFilter = screen.getByTestId('comparison-filter')
   const writingFilter = screen.getByTestId('name-filter')
   const valueFilter = screen.getByTestId('value-filter')
-  const removeFilterButton = screen.getByRole('button', { name: /remover filtros/i })
+  const removeFilterButton = screen.getByRole('button', { name: /REMOVER/i })
 
   userEvent.type(writingFilter, 'aa');
   expect(screen.queryByText(/Tatooine/i)).not.toBeInTheDocument();
