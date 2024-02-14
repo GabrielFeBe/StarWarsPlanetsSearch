@@ -1,15 +1,3 @@
-# :construction: README em construção ! :construction:
-
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você;
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
-
 # Projeto de Filtros Aninhados StarWars
 
 Este projeto React implementa filtros aninhados para visualização de planetas usando a API SWAPI (Star Wars API).
@@ -77,3 +65,46 @@ npm install
 ### 4. Table (Tabela de Planetas)
 
 - Exibe uma tabela com informações detalhadas dos planetas, permitindo a visualização dos dados filtrados.
+
+# Testes Automatizados
+
+**Observação:** Após a adição do Tailwind CSS e a mudança de alguns nomes, alguns testes podem estar quebrados.
+
+## Executando os Testes
+
+Certifique-se de ter as dependências instaladas antes de executar os testes.
+
+Execute os testes com o seguinte comando:
+
+- Lembre-se de instalar as dependencias antes de rodar os testes.
+
+```bash
+npm test
+```
+
+## Descrição do Teste
+
+Este teste verifica a funcionalidade do filtro e ordenação de planetas no aplicativo React. O ambiente de teste utiliza uma API mockada para simular as chamadas à API SWAPI.
+
+### Passos do Teste
+
+1. **Renderização do Aplicativo:**
+
+   - O aplicativo é renderizado dentro do `StarProvider` para gerenciar o estado dos planetas.
+
+2. **Acesso ao Planeta Tatooine:**
+
+   - Aguarda a exibição do planeta Tatooine para garantir que a renderização ocorreu corretamente.
+
+3. **Interações de Usuário:**
+
+   - Utiliza a biblioteca `userEvent` para simular interações do usuário, como digitar no campo de filtro, selecionar opções de ordenação e filtrar.
+
+4. **Validação dos Resultados:**
+
+   - Verifica se os elementos esperados estão presentes ou ausentes após as interações do usuário.
+
+5. **Limpeza de Filtros:**
+   - Testa a funcionalidade de remover filtros e verifica se os resultados são restaurados.
+
+**Observação:** Este teste está sujeito a quebras devido a mudanças no código, especialmente após a adição do Tailwind CSS e alterações nos nomes de elementos. Certifique-se de atualizar os seletores de acordo com as mudanças realizadas no código, eu arrumei os seletores que vi mas vai saber.
